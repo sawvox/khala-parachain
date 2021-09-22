@@ -43,7 +43,7 @@
   },
   "parachains": [
     {
-      "bin": "./bin/khala-node",
+      "bin": "./bin/khala-2004",
       "chain": "khala-dev-2004",
       "balance": "1000000000000000000000",
       "nodes": [
@@ -75,7 +75,7 @@
       ]
     },
     {
-      "bin": "./bin/khala-node",
+      "bin": "./bin/khala-2005",
       "chain": "khala-dev-2005",
       "balance": "1000000000000000000000",
       "nodes": [

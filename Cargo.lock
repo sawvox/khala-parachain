@@ -1668,8 +1668,8 @@ dependencies = [
  "sp-io",
  "sp-runtime",
  "sp-std",
- "xcm",
- "xcm-executor",
+ "xcm 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
+ "xcm-executor 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
 ]
 
 [[package]]
@@ -1697,7 +1697,7 @@ dependencies = [
  "sp-std",
  "sp-trie",
  "sp-version",
- "xcm",
+ "xcm 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
 ]
 
 [[package]]
@@ -1724,7 +1724,7 @@ dependencies = [
  "sp-io",
  "sp-runtime",
  "sp-std",
- "xcm",
+ "xcm 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
 ]
 
 [[package]]
@@ -1741,8 +1741,8 @@ dependencies = [
  "rand_chacha 0.3.1",
  "sp-runtime",
  "sp-std",
- "xcm",
- "xcm-executor",
+ "xcm 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
+ "xcm-executor 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
 ]
 
 [[package]]
@@ -1760,7 +1760,7 @@ dependencies = [
  "sp-runtime",
  "sp-std",
  "sp-trie",
- "xcm",
+ "xcm 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
 ]
 
 [[package]]
@@ -1810,7 +1810,7 @@ dependencies = [
  "sp-runtime",
  "sp-std",
  "sp-trie",
- "xcm",
+ "xcm 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
 ]
 
 [[package]]
@@ -3803,7 +3803,7 @@ dependencies = [
  "pallet-treasury",
  "pallet-utility",
  "pallet-vesting",
- "pallet-xcm",
+ "pallet-xcm 0.9.10",
  "pallet-xcm-transfer",
  "parachains-common",
  "parity-scale-codec",
@@ -3826,9 +3826,9 @@ dependencies = [
  "sp-version",
  "static_assertions",
  "substrate-wasm-builder",
- "xcm",
- "xcm-builder",
- "xcm-executor",
+ "xcm 0.9.10",
+ "xcm-builder 0.9.10",
+ "xcm-executor 0.9.10",
 ]
 
 [[package]]
@@ -3883,7 +3883,7 @@ dependencies = [
  "pallet-treasury",
  "pallet-utility",
  "pallet-vesting",
- "pallet-xcm",
+ "pallet-xcm 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
  "parity-scale-codec",
  "polkadot-primitives",
  "polkadot-runtime-common",
@@ -3910,9 +3910,9 @@ dependencies = [
  "sp-version",
  "static_assertions",
  "substrate-wasm-builder",
- "xcm",
- "xcm-builder",
- "xcm-executor",
+ "xcm 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
+ "xcm-builder 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
+ "xcm-executor 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
 ]
 
 [[package]]
@@ -6049,6 +6049,27 @@ dependencies = [
 [[package]]
 name = "pallet-xcm"
 version = "0.9.10"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "log",
+ "pallet-balances",
+ "parity-scale-codec",
+ "polkadot-parachain",
+ "polkadot-runtime-parachains",
+ "serde",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+ "xcm 0.9.10",
+ "xcm-builder 0.9.10",
+ "xcm-executor 0.9.10",
+]
+
+[[package]]
+name = "pallet-xcm"
+version = "0.9.10"
 source = "git+https://github.com/paritytech/polkadot?branch=release-v0.9.10#d348ba982f823adeb700b54db98169520f323595"
 dependencies = [
  "frame-support",
@@ -6058,8 +6079,8 @@ dependencies = [
  "serde",
  "sp-runtime",
  "sp-std",
- "xcm",
- "xcm-executor",
+ "xcm 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
+ "xcm-executor 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
 ]
 
 [[package]]
@@ -6074,7 +6095,7 @@ dependencies = [
  "serde",
  "sp-runtime",
  "sp-std",
- "xcm",
+ "xcm 0.9.10",
 ]
 
 [[package]]
@@ -7481,7 +7502,7 @@ dependencies = [
  "sp-staking",
  "sp-std",
  "static_assertions",
- "xcm",
+ "xcm 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
 ]
 
 [[package]]
@@ -7519,8 +7540,8 @@ dependencies = [
  "sp-session",
  "sp-staking",
  "sp-std",
- "xcm",
- "xcm-executor",
+ "xcm 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
+ "xcm-executor 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
 ]
 
 [[package]]
@@ -7797,15 +7818,6 @@ name = "proc-macro-nested"
 version = "0.1.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bc881b2c22681370c6a780e47af9840ef841837bc98118431d4e1868bd0c1086"
-
-[[package]]
-name = "proc-macro2"
-version = "0.4.30"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cf3d2011ab5c909338f7887f4fc896d35932e29146c12c8d01da6b22a80ba759"
-dependencies = [
- "unicode-xid 0.1.0",
-]
 
 [[package]]
 name = "proc-macro2"
@@ -8385,7 +8397,7 @@ dependencies = [
  "pallet-transaction-payment",
  "pallet-transaction-payment-rpc-runtime-api",
  "pallet-utility",
- "pallet-xcm",
+ "pallet-xcm 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
  "parity-scale-codec",
  "polkadot-parachain",
  "polkadot-primitives",
@@ -8409,9 +8421,9 @@ dependencies = [
  "sp-transaction-pool",
  "sp-version",
  "substrate-wasm-builder",
- "xcm",
- "xcm-builder",
- "xcm-executor",
+ "xcm 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
+ "xcm-builder 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
+ "xcm-executor 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
 ]
 
 [[package]]
@@ -12262,7 +12274,7 @@ dependencies = [
  "pallet-treasury",
  "pallet-utility",
  "pallet-vesting",
- "pallet-xcm",
+ "pallet-xcm 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
  "parity-scale-codec",
  "polkadot-parachain",
  "polkadot-primitives",
@@ -12289,9 +12301,9 @@ dependencies = [
  "sp-version",
  "static_assertions",
  "substrate-wasm-builder",
- "xcm",
- "xcm-builder",
- "xcm-executor",
+ "xcm 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
+ "xcm-builder 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
+ "xcm-executor 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
 ]
 
 [[package]]
@@ -12393,6 +12405,17 @@ dependencies = [
 [[package]]
 name = "xcm"
 version = "0.9.10"
+dependencies = [
+ "derivative",
+ "impl-trait-for-tuples",
+ "log",
+ "parity-scale-codec",
+ "xcm-procedural",
+]
+
+[[package]]
+name = "xcm"
+version = "0.9.10"
 source = "git+https://github.com/paritytech/polkadot?branch=release-v0.9.10#d348ba982f823adeb700b54db98169520f323595"
 dependencies = [
  "derivative",
@@ -12400,6 +12423,28 @@ dependencies = [
  "log",
  "parity-scale-codec",
  "xcm-procedural",
+]
+
+[[package]]
+name = "xcm-builder"
+version = "0.9.10"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "impl-trait-for-tuples",
+ "pallet-balances",
+ "pallet-transaction-payment",
+ "pallet-xcm 0.9.10",
+ "parity-scale-codec",
+ "polkadot-parachain",
+ "polkadot-runtime-parachains",
+ "sp-arithmetic",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+ "xcm 0.9.10",
+ "xcm-executor 0.9.10",
 ]
 
 [[package]]
@@ -12417,8 +12462,24 @@ dependencies = [
  "sp-io",
  "sp-runtime",
  "sp-std",
- "xcm",
- "xcm-executor",
+ "xcm 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
+ "xcm-executor 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
+]
+
+[[package]]
+name = "xcm-executor"
+version = "0.9.10"
+dependencies = [
+ "frame-support",
+ "impl-trait-for-tuples",
+ "log",
+ "parity-scale-codec",
+ "sp-arithmetic",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+ "xcm 0.9.10",
 ]
 
 [[package]]
@@ -12435,7 +12496,7 @@ dependencies = [
  "sp-io",
  "sp-runtime",
  "sp-std",
- "xcm",
+ "xcm 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
 ]
 
 [[package]]
