@@ -1656,7 +1656,6 @@ dependencies = [
 [[package]]
 name = "cumulus-pallet-dmp-queue"
 version = "0.1.0"
-source = "git+https://github.com/paritytech/cumulus?branch=polkadot-v0.9.10#fa116cfbfb470a8114fc02f9d2e3c0a5ab6c7193"
 dependencies = [
  "cumulus-primitives-core",
  "frame-support",
@@ -1665,11 +1664,13 @@ dependencies = [
  "parity-scale-codec",
  "rand 0.8.4",
  "rand_chacha 0.3.1",
+ "sp-core",
  "sp-io",
  "sp-runtime",
  "sp-std",
- "xcm 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
- "xcm-executor 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
+ "sp-version",
+ "xcm 0.9.10",
+ "xcm-executor 0.9.10",
 ]
 
 [[package]]
@@ -1714,35 +1715,39 @@ dependencies = [
 [[package]]
 name = "cumulus-pallet-xcm"
 version = "0.1.0"
-source = "git+https://github.com/paritytech/cumulus?branch=polkadot-v0.9.10#fa116cfbfb470a8114fc02f9d2e3c0a5ab6c7193"
-dependencies = [
- "cumulus-primitives-core",
- "frame-support",
- "frame-system",
- "parity-scale-codec",
- "serde",
- "sp-io",
- "sp-runtime",
- "sp-std",
- "xcm 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
-]
-
-[[package]]
-name = "cumulus-pallet-xcmp-queue"
-version = "0.1.0"
-source = "git+https://github.com/paritytech/cumulus?branch=polkadot-v0.9.10#fa116cfbfb470a8114fc02f9d2e3c0a5ab6c7193"
 dependencies = [
  "cumulus-primitives-core",
  "frame-support",
  "frame-system",
  "log",
  "parity-scale-codec",
- "rand 0.8.4",
- "rand_chacha 0.3.1",
+ "serde",
+ "sp-io",
  "sp-runtime",
  "sp-std",
- "xcm 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
- "xcm-executor 0.9.10 (git+https://github.com/paritytech/polkadot?branch=release-v0.9.10)",
+ "xcm 0.9.10",
+]
+
+[[package]]
+name = "cumulus-pallet-xcmp-queue"
+version = "0.1.0"
+dependencies = [
+ "cumulus-pallet-parachain-system",
+ "cumulus-primitives-core",
+ "frame-support",
+ "frame-system",
+ "log",
+ "pallet-balances",
+ "parity-scale-codec",
+ "rand 0.8.4",
+ "rand_chacha 0.3.1",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+ "xcm 0.9.10",
+ "xcm-builder 0.9.10",
+ "xcm-executor 0.9.10",
 ]
 
 [[package]]
@@ -7821,6 +7826,15 @@ checksum = "bc881b2c22681370c6a780e47af9840ef841837bc98118431d4e1868bd0c1086"
 
 [[package]]
 name = "proc-macro2"
+version = "0.4.30"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cf3d2011ab5c909338f7887f4fc896d35932e29146c12c8d01da6b22a80ba759"
+dependencies = [
+ "unicode-xid 0.1.0",
+]
+
+[[package]]
+name = "proc-macro2"
 version = "1.0.28"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5c7ed8b8c7b886ea3ed7dde405212185f423ab44682667c8c6dd14aa1d9f6612"
@@ -12432,6 +12446,7 @@ dependencies = [
  "frame-support",
  "frame-system",
  "impl-trait-for-tuples",
+ "log",
  "pallet-balances",
  "pallet-transaction-payment",
  "pallet-xcm 0.9.10",

@@ -9,7 +9,8 @@
         "port": 10333,
         "flags": [
           "--node-key=807e26fb3fd3d694b8b5f78a04d4bcff2e94a6f2e87bc809d9690e771bba8aca",
-          "--rpc-cors=all"
+          "--rpc-cors=all",
+          "-lruntime=trace"
         ]
       },
       {
@@ -57,6 +58,7 @@
             "--rpc-external",
             "--rpc-cors=all",
             "--rpc-methods=Unsafe",
+            "-lruntime=trace",
             "--",
             "--node-key=1335ac151f2d804189bfc68bd0843a676a3dc2aa6a208326970a75e6c75d4226",
             "--port=30334",
@@ -64,7 +66,8 @@
             "--pruning=archive",
             "--ws-external",
             "--rpc-external",
-            "--rpc-cors=all"
+            "--rpc-cors=all",
+            "-lruntime=trace"
           ]
         },
         {
@@ -89,6 +92,7 @@
             "--rpc-external",
             "--rpc-cors=all",
             "--rpc-methods=Unsafe",
+            "-lruntime=trace",
             "--",
             "--node-key=9ad8595d81d5851a5d5c920d3346881e262b2a720b5878714ee38c919514bcea",
             "--port=30334",
@@ -96,7 +100,8 @@
             "--pruning=archive",
             "--ws-external",
             "--rpc-external",
-            "--rpc-cors=all"
+            "--rpc-cors=all",
+            "-lruntime=trace"
           ]
         },
         {

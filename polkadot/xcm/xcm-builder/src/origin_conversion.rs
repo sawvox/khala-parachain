@@ -235,9 +235,15 @@ where
 					part: BodyPart::Fraction { nom: backing.approvals, denom: backing.eligible },
 				}
 				.into()),
-				None => Err(co.into()),
+				None => {
+                    log::trace!(target: "xcm-builder::convert", "get_backing error");
+                    Err(co.into())
+                }
 			},
-			Err(other) => Err(other),
+			Err(other) => {
+                log::trace!(target: "xcm-builder::convert", "Other error");
+                Err(other)
+            }
 		})
 	}
 }

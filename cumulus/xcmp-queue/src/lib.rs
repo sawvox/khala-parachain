@@ -283,8 +283,7 @@ impl<T: Config> Pallet<T> {
 	/// Sends a signal to the `dest` chain over XCMP. This is guaranteed to be dispatched on this
 	/// block.
 	fn send_signal(dest: ParaId, signal: ChannelSignal) -> Result<(), ()> {
-        log::debug!("phala-debug: send_signal {:?}", (dest, signal));
-
+        log::debug!("phala-debug: send_signal {:?}", dest);
 		let mut s = <OutboundXcmpStatus<T>>::get();
 		if let Some(index) = s.iter().position(|item| item.0 == dest) {
 			s[index].2 = true;
@@ -304,7 +303,7 @@ impl<T: Config> Pallet<T> {
 	}
 
 	pub fn send_blob_message(recipient: ParaId, blob: Vec<u8>) -> Result<u32, MessageSendError> {
-        log::debug!("phala-debug: send_blob_message {:?}", (recipient, blob));
+        log::debug!("phala-debug: send_blob_message {:?}", (&recipient, &blob));
 		Self::send_fragment(recipient, XcmpMessageFormat::ConcatenatedEncodedBlob, blob)
 	}
 
@@ -312,7 +311,7 @@ impl<T: Config> Pallet<T> {
 		recipient: ParaId,
 		xcm: VersionedXcm<()>,
 	) -> Result<u32, MessageSendError> {
-        log::debug!("phala-debug: send_blob_message {:?}", (recipient, xcm));
+        log::debug!("phala-debug: send_xcm_message {:?}", (&recipient, &xcm));
 		Self::send_fragment(recipient, XcmpMessageFormat::ConcatenatedVersionedXcm, xcm)
 	}
 
@@ -351,8 +350,7 @@ impl<T: Config> Pallet<T> {
 		xcm: VersionedXcm<T::Call>,
 		max_weight: Weight,
 	) -> Result<Weight, XcmError> {
-        log::debug!("phala-debug: handle_xcm_message {:?}", (sender, xcm));
-
+        log::debug!("phala-debug: handle_xcm_message {:?}", (&sender, &xcm));
 		let hash = Encode::using_encoded(&xcm, T::Hashing::hash);
 		log::debug!("Processing XCMP-XCM: {:?}", &hash);
 		let (result, event) = match Xcm::<T::Call>::try_from(xcm) {
@@ -380,8 +378,7 @@ impl<T: Config> Pallet<T> {
 		(sent_at, format): (RelayBlockNumber, XcmpMessageFormat),
 		max_weight: Weight,
 	) -> (Weight, bool) {
-        log::debug!("phala-debug: process_xcmp_message {:?}", sender);
-
+        log::debug!("phala-debug: process_xcmp_message {:?}", &sender);
 		let data = <InboundXcmpMessages<T>>::get(sender, sent_at);
 		let mut last_remaining_fragments;
 		let mut remaining_fragments = &data[..];
@@ -389,7 +386,6 @@ impl<T: Config> Pallet<T> {
 		match format {
 			XcmpMessageFormat::ConcatenatedVersionedXcm => {
                 log::debug!("phala-debug: XcmpMessageFormat::ConcatenatedVersionedXcm");
-
 				while !remaining_fragments.is_empty() {
 					last_remaining_fragments = remaining_fragments;
 					if let Ok(xcm) = VersionedXcm::<T::Call>::decode(&mut remaining_fragments) {
@@ -414,7 +410,6 @@ impl<T: Config> Pallet<T> {
 			}
 			XcmpMessageFormat::ConcatenatedEncodedBlob => {
                 log::debug!("phala-debug: XcmpMessageFormat::ConcatenatedEncodedBlob");
-
 				while !remaining_fragments.is_empty() {
 					last_remaining_fragments = remaining_fragments;
 					if let Ok(blob) = <Vec<u8>>::decode(&mut remaining_fragments) {
@@ -439,7 +434,6 @@ impl<T: Config> Pallet<T> {
 			}
 			XcmpMessageFormat::Signals => {
                 log::debug!("phala-debug: XcmpMessageFormat::Signals");
-
 				debug_assert!(false, "All signals are handled immediately; qed");
 				remaining_fragments = &b""[..];
 			}
@@ -481,9 +475,7 @@ impl<T: Config> Pallet<T> {
 	/// for the second &c. though empirical and or practical factors may give rise to adjusting it
 	/// further.
 	fn service_xcmp_queue(max_weight: Weight) -> Weight {
-        let mut status = <InboundXcmpStatus<T>>::get(); // <- sorted.
-        log::debug!("phala-debug: service_xcmp_queue:status {:?}", status);
-
+		let mut status = <InboundXcmpStatus<T>>::get(); // <- sorted.
 		if status.len() == 0 {
 			return 0;
 		}
@@ -621,8 +613,6 @@ impl<T: Config> XcmpMessageHandler for Pallet<T> {
 		max_weight: Weight,
 	) -> Weight {
 		let mut status = <InboundXcmpStatus<T>>::get();
-        log::debug!("phala-debug: handle_xcmp_messages:status {:?}", status);
-
 		let QueueConfigData {
 			suspend_threshold,
 			drop_threshold,
@@ -630,6 +620,8 @@ impl<T: Config> XcmpMessageHandler for Pallet<T> {
 		} = <QueueConfig<T>>::get();
 
 		for (sender, sent_at, data) in iter {
+            log::debug!("phala-debug: handle_xcmp_messages:status {:?}", (&sender, &data));
+
 			// Figure out the message format.
 			let mut data_ref = data;
 			let format = match XcmpMessageFormat::decode(&mut data_ref) {
@@ -696,8 +688,7 @@ impl<T: Config> XcmpMessageSource for Pallet<T> {
 		let old_statuses_len = statuses.len();
 		let max_message_count = statuses.len().min(maximum_channels);
 		let mut result = Vec::with_capacity(max_message_count);
-        log::debug!("phala-debug: take_outbound_messages:statuses {:?}", statuses);
-
+        log::debug!("phala-debug: take_outbound_messages:statuses {:?}", &statuses);
 		for status in statuses.iter_mut() {
 			let (para_id, outbound_status, mut signalling, mut begin, mut end) = *status;
 
@@ -792,26 +783,24 @@ impl<T: Config> XcmpMessageSource for Pallet<T> {
 
 /// Xcm sender for sending to a sibling parachain.
 impl<T: Config> SendXcm for Pallet<T> {
-	fn send_xcm(dest: MultiLocation, msg: Xcm<()>) -> Result<(), SendError> {
-        log::debug!("phala-debug: xcmp-queue::send_xcm {:?}", (dest, msg));
-
+	fn send_xcm(dest: MultiLocation, msg: Xcm<()>) -> Result<(), XcmError> {
 		match &dest {
 			// An HRMP message for a sibling parachain.
 			MultiLocation { parents: 1, interior: X1(Parachain(id)) } => {
 				let versioned_xcm = T::VersionWrapper::wrap_version(&dest, msg)
-					.map_err(|()| SendError::DestinationUnsupported)?;
+					.map_err(|()| XcmError::DestinationUnsupported)?;
 				let hash = T::Hashing::hash_of(&versioned_xcm);
 				Self::send_fragment(
 					(*id).into(),
 					XcmpMessageFormat::ConcatenatedVersionedXcm,
 					versioned_xcm,
 				)
-				.map_err(|e| SendError::Transport(<&'static str>::from(e)))?;
+				.map_err(|e| XcmError::SendFailed(<&'static str>::from(e)))?;
 				Self::deposit_event(Event::XcmpMessageSent(Some(hash)));
 				Ok(())
 			}
 			// Anything else is unhandled. This includes a message this is meant for us.
-			_ => Err(SendError::CannotReachDestination(dest, msg)),
+			_ => Err(XcmError::CannotReachDestination(dest, msg)),
 		}
 	}
 }

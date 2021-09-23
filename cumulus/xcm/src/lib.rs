@@ -110,7 +110,6 @@ impl<T: Config> DmpMessageHandler for UnlimitedDmpExecution<T> {
 		limit: Weight,
 	) -> Weight {
         log::debug!("phala-debug: UnlimitedDmpExecution::handle_dmp_messages {:?}", limit);
-
 		let mut used = 0;
 		for (_sent_at, data) in iter {
 			let id = sp_io::hashing::twox_64(&data[..]);
@@ -167,10 +166,12 @@ impl<T: Config> DmpMessageHandler for LimitAndDropDmpExecution<T> {
 pub fn ensure_sibling_para<OuterOrigin>(o: OuterOrigin) -> Result<ParaId, BadOrigin>
 	where OuterOrigin: Into<Result<Origin, OuterOrigin>>
 {
-    log::debug!("phala-debug: ensure_sibling_para {:?}", OuterOrigin);
 	match o.into() {
 		Ok(Origin::SiblingParachain(id)) => Ok(id),
-		_ => Err(BadOrigin),
+		_ => {
+            log::debug!("phala-debug: ensure_sibling_para::BadOrigin");
+            Err(BadOrigin)
+        },
 	}
 }
 
@@ -179,9 +180,11 @@ pub fn ensure_sibling_para<OuterOrigin>(o: OuterOrigin) -> Result<ParaId, BadOri
 pub fn ensure_relay<OuterOrigin>(o: OuterOrigin) -> Result<(), BadOrigin>
 	where OuterOrigin: Into<Result<Origin, OuterOrigin>>
 {
-    log::debug!("phala-debug: ensure_relay {:?}", OuterOrigin);
 	match o.into() {
 		Ok(Origin::Relay) => Ok(()),
-		_ => Err(BadOrigin),
+		_ => {
+            log::debug!("phala-debug: ensure_relay::BadOrigin");
+            Err(BadOrigin)
+        }
 	}
 }

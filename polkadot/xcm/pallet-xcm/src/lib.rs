@@ -278,12 +278,12 @@ pub mod pallet {
             log::debug!("phala-debug: xcm::reserve_transfer_assets()");
 
             let origin_location = T::ExecuteXcmOrigin::ensure_origin(origin)?;
-            log::debug!("phala-debug: xcm::reserve_transfer_assets(), origin_location: {:?}", origin_location);
+            log::debug!("phala-debug: xcm::reserve_transfer_assets(), origin_location: {:?}", &origin_location);
 
 			let dest = (*dest).try_into().map_err(|()| Error::<T>::BadVersion)?;
 			let beneficiary = (*beneficiary).try_into().map_err(|()| Error::<T>::BadVersion)?;
 			let assets: MultiAssets = (*assets).try_into().map_err(|()| Error::<T>::BadVersion)?;
-            log::debug!("phala-debug: xcm::reserve_transfer_assets(), parsed arguments: {:?}", (dest, beneficiary, assets));
+            log::debug!("phala-debug: xcm::reserve_transfer_assets(), parsed arguments: {:?}", (&dest, &beneficiary, &assets));
 
 			ensure!(assets.len() <= MAX_ASSETS_FOR_TRANSFER, Error::<T>::TooManyAssets);
 			let value = (origin_location, assets.drain());
@@ -432,7 +432,10 @@ where
 {
 	match o.into() {
 		Ok(Origin::Xcm(location)) => Ok(location),
-		_ => Err(BadOrigin),
+		_ => {
+            log::trace!(target: "xcm::ensure_xcm", "BadOrigin");
+            Err(BadOrigin)
+        }
 	}
 }
 
